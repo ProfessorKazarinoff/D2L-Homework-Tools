@@ -226,3 +226,9 @@ config.rst
 package-lock.json
 geckodriver.log
 *.iml
+
+## Any zip files for practice
+.zip
+*.zip
+temp/
+
