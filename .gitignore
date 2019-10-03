@@ -232,3 +232,5 @@ geckodriver.log
 *.zip
 temp/
 
+## Any Jupyter notebooks
+.ipynb

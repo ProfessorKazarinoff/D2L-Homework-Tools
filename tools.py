@@ -3,6 +3,7 @@
 from zipfile37 import ZipFile
 from pathlib import Path
 import os
+import string
 
 def unzip_f(in_path):
     """
@@ -28,10 +29,13 @@ def remove_index(in_dir):
 def clean_fname(fname_str):
     """
     clean_fname() is a function to clean the beginning of a filename so that it starts just with characters
+
+    625597-437561 - firstname.lastname-Sep 28, 2019 120 PM-Homework_1.ipynb
+
     :param fname_str:
     :return:
     """
-    pass
+    return fname_str.split("-")[2].strip().rstrip(string.digits)
 
 def reverse_name(fname_str):
     """
@@ -40,24 +44,34 @@ def reverse_name(fname_str):
     :param fname_str:
     :return:
     """
-    pass
+    sep = '.'
+    s = fname_str.split(".")
+    return sep.join(s[::-1])
 
-def remove_json_ext(fname_str):
+def add_ipynb_ext(fname_str):
     """
     remove_json_ext() is a function to remove the extension .json if present at the end of a filename.
 
     :param fname_str:
     :return:
     """
-    pass
+    sep = '.'
+    return sep.join([fname_str, 'ipynb'])
 
 def main():
-    f_str='Homework 1 Download Oct 1, 2019 1107 AM.zip'
+    f_str = 'Homework 1 Download Oct 1, 2019 1107 AM.zip'
     cwd = Path.cwd()
+    print(cwd)
     f = Path(cwd,f_str)
     unzip_f(f)
     temp_dir = Path(cwd,'temp')
     remove_index(temp_dir)
-
+    for path in temp_dir.iterdir():
+        path_str = str(path)
+        npath_str = reverse_name(path_str)
+        npath_ext_str = add_ipynb_ext(npath_str)
+        #path.rename(Path(path.parent,npath_ext_str))
+        new_path = Path(str(path.parent),npath_ext_str)
+        print(new_path)
 if __name__ == "__main__":
     main()
